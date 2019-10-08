@@ -18,12 +18,19 @@ namespace Inl2_PriorityQueue
 
         private Node<T> GetNode(int index, bool getParent)
         {
-            // Figuring out which path to go in the binary tree.  
+            // Figuring out which path to go in the binary tree. 
+            // Ex: 9 is 1001 in binary. 
             string indexInBinary = Convert.ToString(index, 2);
+            
+            // 1001 becomes 001 and that is the path that we want to use to traverse the tree.
             string treePath = indexInBinary.Substring(1, indexInBinary.Length - 1);
+
+            // If we want the parent of node 9 then only 00 is relevant.
             int destination = getParent ? treePath.Length - 1 : treePath.Length;
             
             // Traversing the tree
+            // 0 means gå left and 1 means go right. So the node at index 9
+            // is left, left then right (001). 
             Node<T> current = root;
             for (int step = 0; step < destination; step++)
             {
@@ -179,11 +186,12 @@ namespace Inl2_PriorityQueue
         /// <param name="current"></param>
         private void SortDown(Node<T> current)
         {
-            // Goes to the child node with the smallest value and swaps places with the parent if needed. 
+            // If we are at the bottom of the list then return. 
             if (current.LeftChild == null && current.RightChild == null)
             {
                 return;
             }
+            // Either go to the only child or the child with the smallest value. 
             else if (current.RightChild == null || current.LeftChild.Value.CompareTo(current.RightChild.Value) == -1)
             {
                 current = current.LeftChild;
@@ -192,11 +200,13 @@ namespace Inl2_PriorityQueue
             {
                 current = current.RightChild;
             }
+            // If both children have the same value, then it doesn't matter what child it goes to. 
             else if (current.RightChild.Value.CompareTo(current.LeftChild.Value) == 0)
             {
                 current = current.LeftChild;
             }
 
+            // The current is not root, so we can start comparing.
             if (current.Value.CompareTo(current.Parent.Value) == -1)
             {
                 var tmp = current.Parent.Value;

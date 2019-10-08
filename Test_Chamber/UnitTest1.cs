@@ -14,20 +14,25 @@ namespace Test_Chamber
         }
 
         [Test]
-        public void Pop_ListHasStrings_ReturnsTheSameAsRegularList()
+        public void Pop_ListHasStrings_ReturnsStringsInTheRightOrder()
         {
 
             PriorityQueue<string> pqList = CreateListOfAThousandStrings();
+            string previous = "0";
 
-            // The Count() changes with every Pop() so I can't compare Count() with i directly.
+            // When poping a QueueList the count will change, so only get Count() once. 
             for (int i = 0, count = pqList.Count(); i < count; i++)
             {
-                if (pqList.Pop() != regularList[i])
+                string current = pqList.Pop();
+
+                // Previous should be smaller than or equal to current. If it's not then fail. 
+                if (previous.CompareTo(current) == 1)
                 {
                     Assert.Fail();
                 }
-            }
 
+                previous = current;
+            }
             Assert.Pass();
         }
 
@@ -118,9 +123,35 @@ namespace Test_Chamber
             Assert.AreEqual(1000, list.Count());
         }
 
+        ////  Not sure if this is a relevant way of comparing the times. In reality one
+        ////  would add all the elements, then sort once. Not everytime an ellement is added
+        //[Test]
+        //public void Add_TakesLessTimeThanRegular()
+        //{
+        //    PriorityQueue<int> list = new PriorityQueue<int>();
+        //    List<int> regularIntList = new List<int>();
+
+        //    DateTime start = DateTime.Now;
+        //    for (int i = 0; i < 100000; i++)
+        //    {
+        //        regularIntList.Add(i);
+        //        regularIntList.Sort();
+        //    }
+
+        //    TimeSpan regularIntListTime = DateTime.Now - start;
+
+        //    start = DateTime.Now;
+        //    for (int i = 0; i < 100000; i++)
+        //    {
+        //        list.Add(i);
+        //    }
+        //    TimeSpan listTime = DateTime.Now - start;
+
+        //    Assert.IsTrue(listTime.Milliseconds < regularIntListTime.Milliseconds);
+        //}
+
         public PriorityQueue<string> CreateListOfAThousandStrings()
         {
-            regularList.Clear();
             PriorityQueue<string> list = new PriorityQueue<string>();
             Random r = new Random();
             for (int i = 0; i < 1000; i++)
@@ -131,14 +162,8 @@ namespace Test_Chamber
                     builder.Append((char)r.Next(97, 121));
                 }
                 list.Add(builder.ToString());
-                regularList.Add(builder.ToString());
-
             }
-
-            regularList.Sort();
             return list;
         }
-
-        List<string> regularList = new List<string>();
     }
 }
