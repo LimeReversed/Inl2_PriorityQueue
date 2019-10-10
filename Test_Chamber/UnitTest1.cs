@@ -125,30 +125,30 @@ namespace Test_Chamber
 
         ////  Not sure if this is a relevant way of comparing the times. In reality one
         ////  would add all the elements, then sort once. Not everytime an ellement is added
-        //[Test]
-        //public void Add_TakesLessTimeThanRegular()
-        //{
-        //    PriorityQueue<int> list = new PriorityQueue<int>();
-        //    List<int> regularIntList = new List<int>();
+        [Test]
+        public void Add_TakesLessTimeThanRegular()
+        {
+            PriorityQueue<int> list = new PriorityQueue<int>();
+            List<int> regularIntList = new List<int>();
 
-        //    DateTime start = DateTime.Now;
-        //    for (int i = 0; i < 100000; i++)
-        //    {
-        //        regularIntList.Add(i);
-        //        regularIntList.Sort();
-        //    }
+            DateTime start = DateTime.Now;
+            for (int i = 0; i < 100000; i++)
+            {
+                regularIntList.Add(i);
+                regularIntList.Sort();
+            }
 
-        //    TimeSpan regularIntListTime = DateTime.Now - start;
+            TimeSpan regularIntListTime = DateTime.Now - start;
 
-        //    start = DateTime.Now;
-        //    for (int i = 0; i < 100000; i++)
-        //    {
-        //        list.Add(i);
-        //    }
-        //    TimeSpan listTime = DateTime.Now - start;
+            start = DateTime.Now;
+            for (int i = 0; i < 100000; i++)
+            {
+                list.Add(i);
+            }
+            TimeSpan listTime = DateTime.Now - start;
 
-        //    Assert.IsTrue(listTime.Milliseconds < regularIntListTime.Milliseconds);
-        //}
+            Assert.IsTrue(listTime.Milliseconds < regularIntListTime.Milliseconds);
+        }
 
         public PriorityQueue<string> CreateListOfAThousandStrings()
         {

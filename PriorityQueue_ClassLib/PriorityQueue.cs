@@ -19,17 +19,17 @@ namespace Inl2_PriorityQueue
         private Node<T> GetNode(int index, bool getParent)
         {
             // Figuring out which path to go in the binary tree. 
-            // Ex: 9 is 1001 in binary. 
+            // Ex: 9 is 1001 in binary.
             string indexInBinary = Convert.ToString(index, 2);
             
-            // 1001 becomes 001 and that is the path that we want to use to traverse the tree.
+            // Below 1001 becomes 001 and that is the path we want to use to traverse the tree.
             string treePath = indexInBinary.Substring(1, indexInBinary.Length - 1);
 
             // If we want the parent of node 9 then only 00 is relevant.
             int destination = getParent ? treePath.Length - 1 : treePath.Length;
             
             // Traversing the tree
-            // 0 means gå left and 1 means go right. So the node at index 9
+            // 0 means gå to the LeftChild and 1 means go to RightChild. So the node at index 9
             // is left, left then right (001). 
             Node<T> current = root;
             for (int step = 0; step < destination; step++)
@@ -60,7 +60,8 @@ namespace Inl2_PriorityQueue
             else
             {
                 // Getting the parent of the new node, not the new node itself, 
-                // because the parent needs to point to it.
+                // because current = new Node<T> won't work. The new node needs to
+                // actually be set as the child of the parent.
                 Node<T> parentToNewNode = GetNode(count + 1, true);
 
                 if ((count + 1) % 2 == 0)
@@ -129,16 +130,19 @@ namespace Inl2_PriorityQueue
         }
 
         /// <summary>
-        /// Removes the element at the top of the line in the list. 
+        /// Removes the element at the front of the line in the list. 
         /// </summary>
         private void RemoveTop()
         {
+
             Node<T> parentToLastNode = GetNode(count, true);
 
             if (count == 1)
             {
                 root = null;
             }
+            // Go to the correct child, transfer it's value to root, nullify that child then sort
+            // the new root value to where it's supposed to be. 
             else if (count % 2 == 0)
             {
                 root.Value = parentToLastNode.LeftChild.Value;
