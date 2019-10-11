@@ -96,17 +96,30 @@ namespace Test_Chamber
         }
 
         [Test]
-        public void Peek_ListIsEmpty_ThrowsException()
-        {
-            PriorityQueue<string> priorityQueueList = new PriorityQueue<string>();
-            Assert.Throws<InvalidOperationException>(() => priorityQueueList.Peek());
-        }
-
-        [Test]
         public void Pop_ListIsEmpty_ThrowsException()
         {
             PriorityQueue<string> priorityQueueList = new PriorityQueue<string>();
             Assert.Throws<InvalidOperationException>(() => priorityQueueList.Pop());
+        }
+
+        [Test]
+        public void Pop_NotRemovingAll_CountIsCorrect()
+        {
+            PriorityQueue<string> PQList = CreateListOfAThousandStrings();
+
+            for (int i = 0; i < 500; i++)
+            {
+                PQList.Pop();
+            }
+
+            Assert.AreEqual(500, PQList.Count());
+        }
+
+        [Test]
+        public void Peek_ListIsEmpty_ThrowsException()
+        {
+            PriorityQueue<string> priorityQueueList = new PriorityQueue<string>();
+            Assert.Throws<InvalidOperationException>(() => priorityQueueList.Peek());
         }
 
         [Test]
@@ -123,8 +136,13 @@ namespace Test_Chamber
             Assert.AreEqual(1000, list.Count());
         }
 
-        ////  Not sure if this is a relevant way of comparing the times. In reality one
-        ////  would add all the elements, then sort once. Not everytime an ellement is added
+        /*
+         * I debated whether the below test is fair or not. The regular list is faster if 
+         * you just add all the elements and then sort only once. So why not just do that?
+         * I concluded that you are supposed to be able to get an element at any time. 
+         * Not just after you've added them all, meaning that it has to be sorted with 
+         * every Add() and in that context the PriorityQueue is much faster. 
+         */
         [Test]
         public void Add_TakesLessTimeThanRegular()
         {

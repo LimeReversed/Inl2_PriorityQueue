@@ -29,7 +29,7 @@ namespace Inl2_PriorityQueue
             int destination = getParent ? treePath.Length - 1 : treePath.Length;
             
             // Traversing the tree
-            // 0 means gå to the LeftChild and 1 means go to RightChild. So the node at index 9
+            // 0 means go to the LeftChild and 1 means go to RightChild. So the node at index 9
             // is left, left then right (001). 
             Node<T> current = root;
             for (int step = 0; step < destination; step++)
@@ -60,10 +60,11 @@ namespace Inl2_PriorityQueue
             else
             {
                 // Getting the parent of the new node, not the new node itself, 
-                // because current = new Node<T> won't work. The new node needs to
+                // because "current = new Node<T>" won't work. The new node needs to
                 // actually be set as the child of the parent.
                 Node<T> parentToNewNode = GetNode(count + 1, true);
 
+                // Even numbers always go to the right. 
                 if ((count + 1) % 2 == 0)
                 {
                     parentToNewNode.LeftChild = new Node<T> { Value = value };
