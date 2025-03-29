@@ -9,7 +9,7 @@ namespace Console_PQ
     {
         public static void Main(string[] args)
         {
-            PriorityQueueTester.TestPriorityQueue(() => new PriorityQueue<int>(), () => new PriorityQueue<string>());
+            PriorityQueueTester.TestPriorityQueue(() => new PriorityQueueUsingArray<int>(), () => new PriorityQueueUsingArray<string>());
             Console.ReadKey();
         }
     }
