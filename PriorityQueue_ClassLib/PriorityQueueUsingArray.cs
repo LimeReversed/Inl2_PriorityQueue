@@ -41,7 +41,7 @@ namespace Inl2_PriorityQueue
              * I tried to let the values "bubble up" based on which was smaller, but that created an unbalanced tree where
              * I couldn't tell which value was an entered one, or a default. 
              */
-            (array[0], array[count - 1]) = (array[count - 1], array[0]);
+            (array[0], array[count - 1]) = (array[count - 1], array[0]); // Swap
             count--;
             HeapifyDown(0);
 
@@ -51,8 +51,8 @@ namespace Inl2_PriorityQueue
         private void HeapifyUp(int index) 
         {
             /*
-             * i >> 1 calculates what index the parent. The beauty of binary code is that 1100 = 12, 110 = 6, 11 = 3 and 1 = 1.
-             * So I can just let the loop it self jump through the array as if it was a binary tree. 
+             * i >> 1 calculates the index of the parent. The beauty of binary code is that 1100 = 12, 110 = 6, 11 = 3 and 1 = 1.
+             * So I can just let the loop itself jump through the array as if it was a binary tree. 
              * index + 1 because it only works if the first index is 1. 
              * i > 1 because we are comparing parent and child, so we don't want to go to the last parent. 
              */
@@ -85,7 +85,7 @@ namespace Inl2_PriorityQueue
                     indexOfSmallest = leftChildIndex;
                 }
 
-                // Then we compare rightChild with either parent or leftChild depending on previous if statement.  
+                // Then we compare rightChild with either parent or leftChild depending on previous if-statement.  
                 if (rightChildIndex < count && array[rightChildIndex].CompareTo(array[indexOfSmallest]) == -1)
                 {
                     indexOfSmallest = rightChildIndex;
