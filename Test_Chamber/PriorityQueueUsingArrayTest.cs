@@ -159,36 +159,41 @@ namespace Test_Chamber
         [Test]
         public void Add_TakesLessTimeThanRegular()
         {
+
             PriorityQueueUsingArray<int> pq = new PriorityQueueUsingArray<int>();
             List<int> regularIntList = new List<int>();
+            int amount = 100000;
+            Debug.WriteLine($"*** Regular list VS PriorityQueue using objects. Both filled with {amount} elements ***");
 
             DateTime start = DateTime.Now;
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < amount; i++)
             {
                 regularIntList.Add(i);
                 regularIntList.Sort();
             }
 
             TimeSpan regularIntListTime = DateTime.Now - start;
+            Debug.WriteLine($"Regular list: {regularIntListTime.TotalSeconds} seconds");
 
             start = DateTime.Now;
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < amount; i++)
             {
                 pq.Add(i);
             }
             TimeSpan pqTime = DateTime.Now - start;
 
-            Debug.WriteLine($"Regular list: {regularIntListTime.TotalSeconds} seconds");
-            Debug.WriteLine($"PQ: {pqTime.TotalSeconds} seconds");
+            Debug.WriteLine($"PQ with objects: {pqTime.TotalSeconds} seconds");
             Assert.IsTrue(pqTime.TotalSeconds < regularIntListTime.TotalSeconds);
         }
 
         [Test]
         public void Add_UsingArrayTakesLessTimeThanObjects()
         {
+
             PriorityQueueUsingArray<int> pqUsingArray = new PriorityQueueUsingArray<int>();
             PriorityQueue<int> pqUsingObjects = new PriorityQueue<int>();
             int amount = 10000000;
+            Debug.WriteLine($"*** PriorityQueue using objects VS PriorityQueue using Array. Both filled with {amount} elements ***");
 
             DateTime start = DateTime.Now;
             for (int i = 0; i < amount; i++)
