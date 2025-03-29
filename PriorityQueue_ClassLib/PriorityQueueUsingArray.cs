@@ -37,7 +37,7 @@ namespace Inl2_PriorityQueue
             array[0] = default;
 
             /* Swap first element with last element, subtract count, then heapify the new first element down to it's new position. 
-             * Doing it this way keeps the tree balanced, since the nodes will be locked off in the correct order.
+             * Doing this keeps the tree balanced, since the nodes will be locked off in the correct order.
              * I tried to let the values "bubble up" based on which was smaller, but that created an unbalanced tree where
              * I couldn't tell which value was an entered one, or a default. 
              */
@@ -54,7 +54,7 @@ namespace Inl2_PriorityQueue
              * i >> 1 calculates the index of the parent. The beauty of binary code is that 1100 = 12, 110 = 6, 11 = 3 and 1 = 1.
              * So I can just let the loop itself jump through the array as if it was a binary tree. 
              * index + 1 because it only works if the first index is 1. 
-             * i > 1 because we are comparing parent and child, so we don't want to go to the last parent. 
+             * i > 1 because we are comparing parent and child, so we don't want to go to the last parent. Last parent would be 1 on 1 based index.  
              */
             for (int i = index + 1; i > 1; i = i >> 1)
             {
