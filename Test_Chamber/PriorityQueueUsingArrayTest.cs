@@ -218,6 +218,14 @@ namespace Test_Chamber
             Assert.IsTrue(arrayPqTime.TotalSeconds < objectPqTime.TotalSeconds);
         }
 
+        [Test]
+        public void Brackets_Work()
+        {
+            PriorityQueueUsingArray<int> pqUsingArray = new PriorityQueueUsingArray<int>();
+            pqUsingArray.Add(5);
+            Assert.IsTrue(5 == pqUsingArray[0]);
+        }
+
         public PriorityQueueUsingArray<string> CreatePqOfAThousandStrings()
         {
             PriorityQueueUsingArray<string> list = new PriorityQueueUsingArray<string>();

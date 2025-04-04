@@ -7,6 +7,17 @@ namespace Inl2_PriorityQueue
     {
         private int count = 0;
         private T[] array = new T[16];
+        public T this[int index]
+        {
+            get
+            {
+                return array[index];
+            }
+            private set 
+            {
+                array[index] = value;
+            }
+        }
 
         public void Add(T value)
         {
